@@ -54,6 +54,7 @@ makeCardsArray = () => {
 
 showCards = (cardsToShow) =>{
     const grid = document.getElementById('grid');
+    grid.className = "grid-shadow";
     cleanUpGrid(grid);
     cardsToShow.forEach((card, index) => {
         const cardDiv = makeCardDiv(card, index);
