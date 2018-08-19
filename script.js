@@ -152,7 +152,7 @@ prepareNewTurn = () => {
 destroyCards = (cards) => {
     cards.forEach((card) => {
         card.removeEventListener("click", cardClicked);
-        card.style.visibility = 'hidden';
+        card.style.opacity = 0;
     });
 }
 
