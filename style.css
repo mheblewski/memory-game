@@ -107,8 +107,11 @@ body{
     transition: all .3s linear 0s;
 }
 
-#turns {
+.stats {
     margin: 40px;
+}
+
+.stats p{
     color: #00a288;
     font-size: 40px;
 }

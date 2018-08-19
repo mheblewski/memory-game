@@ -38,9 +38,12 @@ let showedCards = [];
 let canRun = true;
 let turns = 0;
 let matchCounter = 0;
+let seconds = 0, minutes = 0;
+let timerTimeout;
 
 startGame = () => {
     resetTurns();
+    startTimer();
     const cardsToShow = makeCardsArray();
     showCards(cardsToShow);
 }
@@ -132,6 +135,13 @@ finishTurn = () => {
         turnBackCards(showedCards);
     }
     prepareNewTurn();
+    if(matchCounter === cards.length){
+        finishGame();
+    }
+}
+
+finishGame = () => {
+    stopTimer();
 }
 
 prepareNewTurn = () => {
@@ -162,4 +172,37 @@ cleanUpGrid = (grid) => {
     while (grid.firstChild) {
         grid.removeChild(grid.firstChild);
     }
+}
+
+startTimer = () => {
+    let timer = document.getElementById("timer");
+    clearTimer(timer);
+    triggerTimer(timer);
+}
+
+triggerTimer = (timer) => {
+    timerTimeout = setTimeout(nextSecond.bind(this, timer), 1000);
+}
+
+nextSecond = (timer) => {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+    }
+    
+    timer.textContent = (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    triggerTimer(timer);
+}
+
+clearTimer = (timer) => {
+    clearTimeout(timerTimeout);
+    timer.innerHTML = "00:00";
+    seconds = 0;
+    minutes = 0;
+}
+
+stopTimer = () => {
+    clearTimeout(timerTimeout);
 }
